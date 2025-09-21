@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getComputerChoice() {
+            const move = Math.floor(Math.random() * 3);
+            switch (move) {
+                case 0:
+                    return "rock";
+                case 1:
+                    return "paper";
+                default:
+                    return "scissors";
+            }
+        }
+
+        function getHumanChoice() {
+            return prompt("What move do you play?");
+        }
+
+        function playGame() {
+            let humanScore = 0;
+            let computerScore = 0;
+
+            function playRound(humanChoice, computerChoice) {
+                humanChoice = humanChoice.toLowerCase();
+                if (humanChoice === computerChoice) {
+                    console.log(`Tied game! You both played ${humanChoice}`);
+                    return;
+                }
+                const hands = new Set();
+                let winningHand;
+                hands.add(humanChoice);
+                hands.add(computerChoice);
+                if (hands.has('rock') && hands.has('paper')) winningHand = "paper";
+                else if (hands.has('rock') && hands.has('scissors')) winningHand = "rock";
+                else if (hands.has('paper') && hands.has('scissors')) winningHand = "scissors";
+                if (winningHand === humanChoice) {
+                    humanScore++;
+                    console.log(`Congratulations, you win! ${humanChoice} beats ${computerChoice}`);
+                }
+                else {
+                    computerScore++;
+                    console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+                }
+            }
+            for (let i = 0; i < 5; i++) {
+                playRound(getHumanChoice(), 'scissors');
+                console.log(humanScore, computerScore);
+            }
+        }
+
+        playGame();
+    </script>
+</body>
+
+</html>
